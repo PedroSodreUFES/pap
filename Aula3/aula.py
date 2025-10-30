@@ -78,9 +78,6 @@ def ehPrimoFor(n, m):
 def ehPrimo(n):
     return ehPrimoFor(n, 2)
 
-# n = 4
-# print(f"{n}{"" if ehPrimo(n) else " não"} é primo")
-
 def strip(l1, l2):
     if l2 == []:
         return []
@@ -89,5 +86,35 @@ def strip(l1, l2):
     else:
         return strip(l1, tail(l2))
 
-def sqrt(n):
+def consoantList(l1, l2):
+    aux = []
+    # cria uma lista só com as consoantes
+    for letter in l1:
+        if letter not in ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]:
+            aux.append(letter)
     
+    # Realiza a verificação
+    return aux == strip(aux, l2)
+
+def matches(l1, l2):
+    if l2 == []:
+        return []
+    if list(l1) == strip(list(l1), list(head(l2))):
+        return [head(l2)] + matches(l1, tail(l2))
+    else:
+        return matches(l1, tail(l2))
+
+def nextPrime(n):
+    n = n+1
+    if(ehPrimo(n)):
+        return n
+    else:
+        return nextPrime(n)
+    
+def primes(number, divisor):
+    if number == 1:
+        return []
+    if number % divisor == 0:
+        return [divisor] + primes(number/divisor, divisor)
+    else:
+        return primes(number, divisor + 1)
